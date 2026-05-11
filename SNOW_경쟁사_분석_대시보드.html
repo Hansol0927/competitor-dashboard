@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>경쟁사 분석 대시보드 — v41</title>
+<title>경쟁사 분석 대시보드</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -14,26 +14,23 @@ body{font-family:'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif
 .app-badge{background:#1a3a6e;color:#8ab4f8;font-size:11px;padding:3px 10px;border-radius:20px;border:1px solid #2a4a8e}
 .ticker-wrap{background:linear-gradient(90deg,#1e3a5f,#1e40af);overflow:hidden;height:42px;display:flex;align-items:center;position:fixed;top:48px;left:0;right:0;z-index:199;border-bottom:1px solid #1e3a8a}
 .ticker-label{flex-shrink:0;padding:0 16px 0 14px;font-size:13px;font-weight:700;color:#fff;display:flex;align-items:center;gap:6px;white-space:nowrap}
-.ticker-track{display:inline-flex;align-items:center;white-space:nowrap;}
-.ticker-track:hover{animation-play-state:paused}
-.ticker-item{display:inline-flex;align-items:center;gap:8px;padding:0 28px;font-size:13px;color:rgba(255,255,255,0.9);border-right:1px solid rgba(255,255,255,0.15)}
 .ticker-svc{font-weight:700;color:#fff}
 .ticker-up{color:#6ee7b7;font-weight:600}
 .ticker-dn{color:#fca5a5;font-weight:600}
 .ticker-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.sidebar{background:#E8EDF5;width:168px;position:fixed;top:48px;left:0;bottom:0;z-index:198;display:flex;flex-direction:column;border-right:1px solid #d1d9e6;transition:width .22s ease;overflow:hidden}
+.sidebar{background:#E8EDF5;width:168px;position:fixed;top:90px;left:0;bottom:0;z-index:198;display:flex;flex-direction:column;border-right:1px solid #d1d9e6;transition:width .22s ease;overflow:hidden}
 .sidebar.sb-off{width:0;border-right:none}
 .sidebar-nav{flex:1;padding:8px 0;min-width:168px}
 .main-wrap.sb-off{margin-left:0}
-#sbToggleBtn{position:fixed;top:56px;left:168px;width:16px;height:40px;background:#E8EDF5;border:1px solid #d1d9e6;border-left:none;border-radius:0 6px 6px 0;cursor:pointer;z-index:199;display:flex;align-items:center;justify-content:center;color:#64748b;font-size:10px;transition:left .22s ease;user-select:none;padding:0}
+#sbToggleBtn{position:fixed;top:98px;left:168px;width:16px;height:40px;background:#E8EDF5;border:1px solid #d1d9e6;border-left:none;border-radius:0 6px 6px 0;cursor:pointer;z-index:199;display:flex;align-items:center;justify-content:center;color:#64748b;font-size:10px;transition:left .22s ease;user-select:none;padding:0}
 #sbToggleBtn:hover{background:#d1d9e6;color:#1e293b}
 #sbToggleBtn.sb-off{left:0;border-left:1px solid #d1d9e6;border-radius:0 6px 6px 0}
 .page-tab{display:block;padding:11px 16px;font-size:12px;font-weight:500;color:#64748b;cursor:pointer;border-left:3px solid transparent;transition:all .15s;white-space:nowrap}
 .page-tab:hover{color:#1e293b;background:rgba(0,0,0,0.04)}
 .page-tab.active{color:#1e40af;background:rgba(30,64,175,0.07);border-left-color:#1e40af;font-weight:600}
 .sidebar-bottom{padding:12px 16px;border-top:1px solid #d1d9e6;font-size:10px;color:#94a3b8}
-.main-wrap{margin-left:168px;margin-top:48px;display:flex;flex-direction:column;min-height:calc(100vh - 48px);transition:margin-left .22s ease}
-.ctrl-bar{background:#fff;border-bottom:1px solid #e2e8f0;padding:9px 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:sticky;top:48px;z-index:100}
+.main-wrap{margin-left:168px;margin-top:90px;display:flex;flex-direction:column;min-height:calc(100vh - 90px);transition:margin-left .22s ease}
+.ctrl-bar{background:#fff;border-bottom:1px solid #e2e8f0;padding:9px 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:sticky;top:90px;z-index:100}
 .ctrl-label{font-size:11px;color:#94a3b8;font-weight:500}
 .ctrl-sep{width:1px;height:20px;background:#e2e8f0}
 .ctab,.ptab{padding:5px 12px;font-size:12px;border:1px solid #e2e8f0;border-radius:6px;cursor:pointer;background:#f8fafc;color:#64748b;transition:all .15s}
@@ -95,7 +92,7 @@ body{font-family:'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif
 .svc-btn.on{color:#fff;border-color:transparent}
 .sx{overflow-x:auto}
 .tbl{width:100%;border-collapse:collapse;font-size:12px}
-.tbl th{background:#f8fafc;padding:7px 10px;text-align:center;font-weight:500;color:#64748b;border-bottom:1px solid #e2e8f0;white-space:nowrap}
+.tbl th{background:#f8fafc;padding:5px 10px;text-align:center;font-weight:500;color:#64748b;border-bottom:1px solid #e2e8f0;white-space:nowrap}
 .tbl th.l{text-align:left}
 .tbl td{padding:5px 3px;border-bottom:1px solid #f1f5f9;text-align:center;vertical-align:middle}
 .tbl td.sc{text-align:center;padding:5px 8px;border-left:none}
@@ -114,7 +111,6 @@ body{font-family:'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif
 .ticker-track{display:flex;align-items:center;white-space:nowrap;animation:ticker-scroll 22s linear infinite}
 .ticker-track:hover{animation-play-state:paused}
 .ticker-item{display:inline-flex;align-items:center;gap:8px;padding:0 40px;font-size:13px;color:rgba(255,255,255,0.9);border-right:2px solid rgba(255,255,255,0.25)}
-.tip-wrap{position:relative;display:inline-flex;align-items:center;margin-left:6px;vertical-align:middle}
 .tip-icon{width:15px;height:15px;border-radius:50%;background:#e2e8f0;color:#64748b;font-size:9px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;line-height:1;user-select:none}
 .tip-icon:hover{background:#bfdbfe;color:#1e40af}
 .tip-box{display:none;position:absolute;left:20px;top:50%;transform:translateY(-50%);background:#1e293b;color:#f1f5f9;font-size:11px;font-weight:400;padding:8px 11px;border-radius:8px;z-index:9999;line-height:1.6;box-shadow:0 4px 16px rgba(0,0,0,0.25);width:220px}
@@ -135,8 +131,19 @@ body{font-family:'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif
 
 <header class="app-header">
   <div class="app-logo">경쟁사 분석 대시보드 <span>by Snow Analytics</span></div>
-  <div class="app-badge">v41 · 포트폴리오</div>
+  <div class="app-badge">포트폴리오</div>
 </header>
+
+<!-- 티커 -->
+<div class="ticker-wrap">
+  <div class="ticker-label">
+    <span style="width:7px;height:7px;border-radius:50%;background:#6ee7b7;display:inline-block"></span>
+    LIVE
+  </div>
+  <div style="overflow:hidden;flex:1">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+</div>
 
 <!-- 사이드바 -->
 <nav class="sidebar" id="sidebarNav">
@@ -146,7 +153,7 @@ body{font-family:'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif
     <div class="page-tab" onclick="setPage(this,'p3')">03 · 매출·다운로드</div>
     <div class="page-tab" onclick="setPage(this,'p4')">04 · 1:1 비교</div>
   </div>
-  <div class="sidebar-bottom">v41 · 가상 데이터</div>
+  <div class="sidebar-bottom">가상 데이터</div>
 </nav>
 <button id="sbToggleBtn" onclick="toggleSidebar()" title="사이드바 접기/펼기">◀</button>
 
@@ -1028,12 +1035,10 @@ function initMockData(){
 // ─────────────────────────────────────────────────────────
 
 let revTab='month', dlTab='month';
-let vis3=SM.map(()=>true);
 let vis1=loadVis1(); // P1 서비스 필터 (localStorage에서 복원)
-let p1SortKey='dau', p1SortDir='desc'; // P1 정렬 상태
 let p1KpiMetric='dau'; // KPI 카드 정렬 지표
 
-let co='gl',pe='6M',curPage='p1',me='dau';
+let co='gl',pe='6M',curPage='p1';
 let ch={};
 let customStart=null,customEnd=null;
 
@@ -1205,7 +1210,7 @@ function togP1(i){
 function p1SelectAll(flag){
   if(!flag){
     // 전체 해제 시 최소 1개(SNOW) 유지
-    vis1 = SM.map((_,i)=> i===1);
+    vis1 = SM.map((_,i)=> i===0);
   } else {
     vis1 = SM.map(()=>true);
   }
@@ -1214,11 +1219,6 @@ function p1SelectAll(flag){
   render();
 }
 // ─────────────────────────────────────────────────────────
-function setP1Sort(key){
-  if(p1SortKey===key) p1SortDir=p1SortDir==='desc'?'asc':'desc';
-  else{ p1SortKey=key; p1SortDir='desc'; }
-  renderP1();
-}
 function setP1KpiMetric(el, metric){
   document.querySelectorAll('#kpiMetricTabs button').forEach(b=>b.classList.remove('active'));
   el.classList.add('active');
@@ -1250,9 +1250,6 @@ function setPe(el,p){
   customStart=null; customEnd=null;
   render();
 }
-function setSort(el,k){document.querySelectorAll('#tabSort .ptab').forEach(t=>t.classList.remove('active'));el.classList.add('active');sortKey=k;render();}
-function setMe(el,m){document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('active'));el.classList.add('active');me=m;render();}
-
 function render(){if(curPage==='p1')renderP1();else if(curPage==='p2')renderP2();else if(curPage==='p3')renderP3();else renderP4();}
 
 
@@ -1421,18 +1418,6 @@ function renderP3(){
         if(metric==='dl') return keys.map(k=>Math.round(byMonth[k].dl/10000));
         return Array(FIXED_MONTHS).fill(null);
       });
-      // 전년 동월 데이터
-      const yoyData=activeIdx.map(si=>{
-        const mauS=MAU_SERIES[co]?.[si];
-        if(!mauS||!mauS.length) return Array(FIXED_MONTHS).fill(null);
-        return mauS.slice(-FIXED_MONTHS).map(r=>{
-          const prevYear=new Date(r.date);prevYear.setFullYear(prevYear.getFullYear()-1);
-          const match=mauS.find(p=>p.date.getFullYear()===prevYear.getFullYear()&&p.date.getMonth()===prevYear.getMonth());
-          // 매출/다운로드 전년 동월은 가상 데이터 기반 근사값
-          const curVal=data[activeIdx.indexOf(si)]?.[fixedLbs.indexOf(`${String(r.date.getFullYear()).slice(2)}/${String(r.date.getMonth()+1).padStart(2,'0')}`)];
-          return curVal?+(curVal*0.88).toFixed(unit==='억'?1:0):null;
-        });
-      });
       const thCols=`<th style="min-width:60px;font-size:12px;font-weight:700;text-align:center;padding:7px 10px;background:#dde3ee;color:#1e3a5f">월</th>${activeSvc.map(m=>`<th style="min-width:70px;font-size:12px;font-weight:700;background:${m.c}55;color:${m.c};cursor:pointer" onclick="p3Drill(${SM.findIndex(s=>s.n===m.n)})">${m.n}</th>`).join('')}`;
       const tbRows=fixedLbs.map((lb,mi)=>{
         const isLast=mi===fixedLbs.length-1;
@@ -1513,19 +1498,6 @@ function renderP1(){
 
   const kpiMap=SM.map((_,si)=>getKpi(si));
   const filtered=BD.filter(d=>vis1[d.ci]);
-
-  // 정렬
-  const sorted=[...filtered].sort((a,b)=>{
-    const dir=p1SortDir;
-    let va,vb;
-    if(p1SortKey==='wow'){va=Math.abs(wowMap[a.ci]);vb=Math.abs(wowMap[b.ci]);}
-    else if(p1SortKey==='dau'){va=kpiMap[a.ci].dau;vb=kpiMap[b.ci].dau;}
-    else if(p1SortKey==='mau'){va=kpiMap[a.ci].mau;vb=kpiMap[b.ci].mau;}
-    else if(p1SortKey==='rev'){va=kpiMap[a.ci].revThis;vb=kpiMap[b.ci].revThis;}
-    else if(p1SortKey==='dl'){va=kpiMap[a.ci].dlThis;vb=kpiMap[b.ci].dlThis;}
-    else{va=Math.abs(wowMap[a.ci]);vb=Math.abs(wowMap[b.ci]);}
-    return dir==='desc'?vb-va:va-vb;
-  });
 
   // ── KPI 카드 (선택 지표 기준 정렬) ──
   const kpiSorted=[...filtered].sort((a,b)=>{
@@ -1640,7 +1612,7 @@ function renderP1(){
   const tipSpark=document.getElementById('tipSpark');
   if(tipSpark) tipSpark.innerHTML=tip('선택 기간 동안 각 서비스의 일별 DAU 변화 추이입니다.');
   const tipHL=document.getElementById('tipHL');
-  if(tipHL) tipHL.innerHTML=tip('이번 주 WoW(전주 대비) 변동폭이 큰 서비스를 자동으로 표시합니다.');
+  if(tipHL) tipHL.innerHTML=tip('이번 주 WoW(전주 대비) 변동폭이 큰 서비스를 자동으로 표시합니다.<br>· 각 카드의 [리서치 보기]를 클릭하면 Claude AI가 해당 서비스의 지표 이상 원인, 시장 가설, 실무 키워드를 자동 분석합니다.');
   const tipP1Rev=document.getElementById('tipP1Rev');
   if(tipP1Rev) tipP1Rev.innerHTML=tip('선택 기간 동안 각 서비스의 일별 매출 변화 추이입니다.');
   const tipP1Dl=document.getElementById('tipP1Dl');
@@ -1704,39 +1676,6 @@ function renderP1(){
     }
   };
 
-  // 선 끝 라벨 플러그인
-  const endLabelPlugin={
-    id:'endLabel',
-    afterDatasetsDraw(chart){
-      const ctx=chart.ctx;
-      // 라벨 y 위치 겹침 방지: 가까운 라벨끼리 오프셋 적용
-      const items=[];
-      chart.data.datasets.forEach((ds,i)=>{
-        const meta=chart.getDatasetMeta(i);
-        if(meta.hidden||!ds._showEndLabel) return;
-        const last=meta.data[meta.data.length-1];
-        if(!last) return;
-        const val=ds.data[ds.data.length-1];
-        if(val===undefined||val===null) return;
-        items.push({ds,last,val,y:last.y});
-      });
-      // y 기준 정렬 후 겹치면 오프셋
-      items.sort((a,b)=>a.y-b.y);
-      for(let i=1;i<items.length;i++){
-        if(items[i].y-items[i-1].y<13) items[i].y=items[i-1].y+13;
-      }
-      items.forEach(({ds,last,val,y})=>{
-        ctx.save();
-        ctx.font='bold 10px sans-serif';
-        ctx.fillStyle=ds.borderColor;
-        ctx.textAlign='left';
-        ctx.textBaseline='middle';
-        ctx.fillText(val.toFixed(1)+'만',last.x+6,y);
-        ctx.restore();
-      });
-    }
-  };
-
   // 선택된 서비스 전체
   const datasets=BD.map(d=>{
     if(!vis1[d.ci]) return null;
@@ -1749,7 +1688,6 @@ function renderP1(){
       borderWidth:1.5,
       pointRadius:0,
       tension:0.35,
-      _showEndLabel:true
     };
   }).filter(Boolean);
 
@@ -1791,15 +1729,13 @@ function renderP1(){
   // ── 매출 트렌드 차트 ──
   document.getElementById('p1RevLeg').innerHTML=SM.map((m,i)=>vis1[i]?`<span class="li"><span class="ld" style="background:${m.c}"></span>${m.n}</span>`:'').join('');
   dc('p1RevLine');
-  const revEndLabelPlugin={id:'revEndLabel',afterDatasetsDraw(chart){const ctx=chart.ctx;const items=[];chart.data.datasets.forEach((ds,i)=>{const meta=chart.getDatasetMeta(i);if(meta.hidden||!ds._showEndLabel)return;const last=meta.data[meta.data.length-1];if(!last)return;const val=ds.data[ds.data.length-1];if(val===undefined||val===null)return;items.push({ds,last,val,y:last.y});});items.sort((a,b)=>a.y-b.y);for(let i=1;i<items.length;i++){if(items[i].y-items[i-1].y<13)items[i].y=items[i-1].y+13;}items.forEach(({ds,last,val,y})=>{ctx.save();ctx.font='bold 10px sans-serif';ctx.fillStyle=ds.borderColor;ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillText((+val.toFixed(2))+'억',last.x+6,y);ctx.restore();});}};;
-  const revDatasets=BD.map(d=>{if(!vis1[d.ci])return null;const raw=getSeriesData(d.ci,co,'rev',sparkDays);return{label:SM[d.ci].n,data:raw,borderColor:SM[d.ci].c,borderDash:DS[d.ci],backgroundColor:'transparent',borderWidth:1.5,pointRadius:0,tension:0.4,_showEndLabel:true};}).filter(Boolean);
+  const revDatasets=BD.map(d=>{if(!vis1[d.ci])return null;const raw=getSeriesData(d.ci,co,'rev',sparkDays);return{label:SM[d.ci].n,data:raw,borderColor:SM[d.ci].c,borderDash:DS[d.ci],backgroundColor:'transparent',borderWidth:1.5,pointRadius:0,tension:0.4};}).filter(Boolean);
   ch['p1RevLine']=new Chart(document.getElementById('p1RevLine'),{type:'line',data:{labels:customLabels,datasets:revDatasets},options:{responsive:true,maintainAspectRatio:false,animation:false,layout:{padding:{top:14,right:8}},plugins:{legend:{display:false},tooltip:{mode:'index',callbacks:{label:ctx=>`${ctx.dataset.label}: ${(+ctx.parsed.y.toFixed(2))}억`}}},scales:{x:{ticks:{autoSkip:false,maxRotation:0,font:{size:10},color:'#94a3b8',callback(v,i){return customLabels[i]?customLabels[i]:null;}},grid:{display:false}},y:{ticks:{font:{size:10},callback:v=>(+v.toFixed(1))+'억'},grace:'20%',grid:{color:'rgba(0,0,0,0.05)'}}}},plugins:[thisWeekLinePlugin]});
 
   // ── 다운로드 트렌드 차트 ──
   document.getElementById('p1DlLeg').innerHTML=SM.map((m,i)=>vis1[i]?`<span class="li"><span class="ld" style="background:${m.c}"></span>${m.n}</span>`:'').join('');
   dc('p1DlLine');
-  const dlEndLabelPlugin={id:'dlEndLabel',afterDatasetsDraw(chart){const ctx=chart.ctx;const items=[];chart.data.datasets.forEach((ds,i)=>{const meta=chart.getDatasetMeta(i);if(meta.hidden||!ds._showEndLabel)return;const last=meta.data[meta.data.length-1];if(!last)return;const val=ds.data[ds.data.length-1];if(val===undefined||val===null)return;items.push({ds,last,val,y:last.y});});items.sort((a,b)=>a.y-b.y);for(let i=1;i<items.length;i++){if(items[i].y-items[i-1].y<13)items[i].y=items[i-1].y+13;}items.forEach(({ds,last,val,y})=>{ctx.save();ctx.font='bold 10px sans-serif';ctx.fillStyle=ds.borderColor;ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillText((+val.toFixed(1))+'만',last.x+6,y);ctx.restore();});}};;
-  const dlDatasets=BD.map(d=>{if(!vis1[d.ci])return null;const raw=getSeriesData(d.ci,co,'dl',sparkDays);return{label:SM[d.ci].n,data:raw,borderColor:SM[d.ci].c,borderDash:DS[d.ci],backgroundColor:'transparent',borderWidth:1.5,pointRadius:0,tension:0.4,_showEndLabel:true};}).filter(Boolean);
+  const dlDatasets=BD.map(d=>{if(!vis1[d.ci])return null;const raw=getSeriesData(d.ci,co,'dl',sparkDays);return{label:SM[d.ci].n,data:raw,borderColor:SM[d.ci].c,borderDash:DS[d.ci],backgroundColor:'transparent',borderWidth:1.5,pointRadius:0,tension:0.4};}).filter(Boolean);
   ch['p1DlLine']=new Chart(document.getElementById('p1DlLine'),{type:'line',data:{labels:customLabels,datasets:dlDatasets},options:{responsive:true,maintainAspectRatio:false,animation:false,layout:{padding:{top:14,right:8}},plugins:{legend:{display:false},tooltip:{mode:'index',callbacks:{label:ctx=>`${ctx.dataset.label}: ${(+ctx.parsed.y.toFixed(1))}만`}}},scales:{x:{ticks:{autoSkip:false,maxRotation:0,font:{size:10},color:'#94a3b8',callback(v,i){return customLabels[i]?customLabels[i]:null;}},grid:{display:false}},y:{ticks:{font:{size:10},callback:v=>(+v.toFixed(1))+'만'},grace:'20%',grid:{color:'rgba(0,0,0,0.05)'}}}},plugins:[thisWeekLinePlugin]});
 
   // ── 주별 표 공통 렌더 함수 ──
@@ -1983,13 +1919,6 @@ const RET_LABELS={
   W:['W1','W2','W3','W4','W5','W6','W8','W10'],
   M:['M1','M2','M3','M4','M5','M6','M9','M12']
 };
-const RET_BASE_VAL={
-  D:[0.35,0.13,0.09,0.06],
-  W:[0.55,0.42,0.35,0.30,0.27,0.24,0.20,0.17],
-  M:[0.65,0.52,0.44,0.39,0.35,0.32,0.27,0.23]
-};
-const RET_MULT=[1.10,1.05,0.90,0.95,0.88,0.85,0.92];
-
 function getRetentionData(si,co,month,type){
   const data=RET_REAL[co]?.[si]?.[month];
   if(data&&Object.keys(data).length>0){
@@ -2017,12 +1946,10 @@ function setRetTab(el,t){
   renderRetention();
 }
 
-function updateRetChecks(){}
 function togRetSvc(i){
   const onCount=retVis.filter(v=>v).length;
   if(retVis[i]&&onCount<=1){alert('최소 1개 서비스는 선택되어 있어야 합니다.');return;}
   retVis[i]=!retVis[i];
-  updateRetChecks();
   renderRetention();
 }
 function initRetentionSelects(){
@@ -2457,10 +2384,11 @@ async function showResearch(ci){
     return`${m.n}: ${wowStr(calcWoW(si,co))}`;
   }).filter(Boolean).join(', ');
 
-  const prompt=`<system_role>
-당신은 글로벌 앱 마켓의 '이상 징후'를 포착하여 그 원인을 추적하는 시장 전략 애널리스트입니다. 단순히 수치를 읽는 수준을 넘어, 국가 간/서비스 간 '지표의 엇갈림(Anomaly)'을 찾아내어 배후의 비즈니스 이슈를 리서치합니다.
-</system_role>
-<input_data>
+  const systemPrompt=`당신은 글로벌 앱 마켓의 '이상 징후'를 포착하여 그 원인을 추적하는 시장 전략 애널리스트입니다. 단순히 수치를 읽는 수준을 넘어, 국가 간/서비스 간 '지표의 엇갈림(Anomaly)'을 찾아내어 배후의 비즈니스 이슈를 리서치합니다.
+- 분석은 날카롭고 전문적이어야 하며, 불필요한 서론은 생략합니다.
+- 데이터 사이의 '모순'을 짚어낼 때 가장 높은 신뢰도를 부여하여 작성하세요.`;
+
+  const prompt=`<input_data>
 - 현재 대시보드 필터: ${currentCoLabel} (사용자가 중점적으로 보고 있는 기준)
 - 리서치 대상 서비스: ${svc.n}
 - 대상 서비스 상세 현황 (WoW):
@@ -2493,15 +2421,12 @@ async function showResearch(ci){
 
 ### 3. 실무자 가이드 (Actionable Insights)
 - 이 수치의 원인을 명확히 규명하기 위해 마케팅 팀이 SNS에서 검색해봐야 할 '핵심 키워드' 3개를 제안하세요.
-</output_format>
-<style_guideline>
-- 분석은 날카롭고 전문적이어야 하며, 불필요한 서론은 생략합니다.
-- 데이터 사이의 '모순'을 짚어낼 때 가장 높은 신뢰도를 부여하여 작성하세요.
-</style_guideline>`;
+</output_format>`;
 
   // ── Claude API 호출 ──
   if(!CLAUDE_API_KEY){
-    body.textContent='[설정 필요] 파일 상단 CLAUDE_API_KEY 상수에 Anthropic API 키를 입력해주세요.';
+    const exWow = wowStr(currentWoW);
+    body.innerHTML=`<div style="color:#92400e;background:#fffbeb;border-left:3px solid #f59e0b;padding:8px 12px;border-radius:4px;margin-bottom:14px;font-size:12px">[설정 필요] 파일 상단 CLAUDE_API_KEY 상수에 Anthropic API 키를 입력해주세요. 아래는 예시 분석 결과입니다.</div><div style="font-size:12.5px;line-height:1.85;color:#1e293b"><p style="font-weight:700;font-size:13px;margin-bottom:8px">🕵️ [${currentCoLabel}] 시장 이슈 리서치: ${svc.n}</p><hr style="border:none;border-top:1px solid #e2e8f0;margin:8px 0"><p style="font-weight:700;color:#1e40af;margin-bottom:4px">1. 지표 이상 탐지 (Data Anomaly)</p><p style="margin-bottom:10px">${svc.n} WoW ${exWow} — 동일 기간 시장 평균 대비 뚜렷한 역행 흐름이 감지되며, ${currentCoLabel} 시장에서의 단독 급변 가능성이 높습니다.</p><p style="font-weight:700;color:#1e40af;margin-bottom:4px">2. 입체적 원인 추론 (Potential Hypotheses)</p><p style="margin-bottom:4px"><strong>[가설 A] 시장 흐름/바이럴</strong><br>틱톡·인스타그램 내 ${svc.n} 관련 AI 필터 챌린지가 특정 크리에이터를 통해 확산되며 신규 유입이 급증했을 가능성. 알고리즘 상위 노출 시 단기 DAU 급등으로 이어질 수 있음.</p><p style="margin-bottom:4px"><strong>[가설 B] 지역 특수성</strong><br>${currentCoLabel} 시장 내 공휴일·시즌 이벤트 또는 현지 연예인 SNS 언급이 트리거로 작용했을 가능성. 타 서비스 흐름과의 불일치가 크다면 지역 한정 마케팅 캠페인 여부를 먼저 점검 필요.</p><p style="margin-bottom:10px"><strong>[가설 C] 경쟁 우위/열위</strong><br>경쟁 서비스 앱 오류·업데이트 이슈로 인한 대체 유입, 또는 ${svc.n} 단독 신기능 출시가 전환점이 됐을 가능성. 출시 타이밍과 지표 변곡점 일치 여부 확인 권장.</p><p style="font-weight:700;color:#1e40af;margin-bottom:6px">3. 실무자 가이드 (Actionable Insights)</p><p style="margin-bottom:4px">마케팅 팀이 SNS에서 우선 확인해야 할 핵심 키워드:</p><div style="display:flex;gap:6px;flex-wrap:wrap"><span style="background:#eff6ff;color:#1e40af;padding:3px 10px;border-radius:10px;font-size:11px;font-weight:600">#${svc.n}필터챌린지</span><span style="background:#eff6ff;color:#1e40af;padding:3px 10px;border-radius:10px;font-size:11px;font-weight:600">#카메라앱추천</span><span style="background:#eff6ff;color:#1e40af;padding:3px 10px;border-radius:10px;font-size:11px;font-weight:600">#AIStyle트렌드</span></div></div>`;
     return;
   }
   try{
@@ -2515,8 +2440,9 @@ async function showResearch(ci){
         'anthropic-dangerous-direct-browser-access':'true'
       },
       body:JSON.stringify({
-        model:'claude-opus-4-7',
+        model:'claude-opus-4-5',
         max_tokens:1500,
+        system:systemPrompt,
         messages:[{role:'user',content:prompt}]
       })
     });
@@ -2559,10 +2485,10 @@ function renderTicker(){
   signals=signals.slice(0,4);
   if(!signals.length){
     signals=[
-      {name:'SNOW',       color:SM[1].c, value:calcWoW(1,'kr'), country:'🇰🇷 한국'},
-      {name:'C사', color:SM[4].c, value:calcWoW(4,'kr'), country:'🇰🇷 한국'},
+      {name:'SNOW',       color:SM[0].c, value:calcWoW(0,'kr'), country:'🇰🇷 한국'},
+      {name:'A사',        color:SM[4].c, value:calcWoW(4,'kr'), country:'🇰🇷 한국'},
       {name:'Epik',       color:SM[2].c, value:calcWoW(2,'ww'), country:'🌏 전세계'},
-      {name:'LINE Camera',color:SM[6].c, value:calcWoW(6,'ww'), country:'🌏 전세계'},
+      {name:'C사',        color:SM[6].c, value:calcWoW(6,'ww'), country:'🌏 전세계'},
     ];
   }
   const itemHtml=signals.map(sg=>{
@@ -2731,107 +2657,9 @@ function renderP4(){
 }
 // ── PAGE 4 END ───────────────────────────────────────────
 
-// ── 데이터 검증 함수 ──────────────────────────────────────
-function validateData(){
-  console.log('%c=== 대시보드 데이터 검증 시작 ===', 'font-weight:bold;font-size:14px');
-  let errors = 0;
-  let warnings = 0;
-
-  // 1. 시트 연결 기본 확인
-  console.log('%c\n[1] 서비스별 KPI 수치 (BD)', 'font-weight:bold');
-  SM.forEach((s,i)=>{
-    ['kr','jp','ww','gl'].forEach(co=>{
-      const d = BD[i]?.[co];
-      if(!d){ console.error(`❌ ${s.n}[${co}] BD 없음`); errors++; return; }
-      if(!d.dau || d.dau===0){ console.error(`❌ ${s.n}[${co}] DAU=0`); errors++; }
-      if(!d.mau || d.mau===0){ console.error(`❌ ${s.n}[${co}] MAU=0`); errors++; }
-      if(!d.rev || d.rev===0){ console.warn(`⚠️ ${s.n}[${co}] 매출=0`); warnings++; }
-      if(!d.dl  || d.dl===0 ){ console.warn(`⚠️ ${s.n}[${co}] 다운로드=0`); warnings++; }
-    });
-  });
-  console.log('BD 확인 완료');
-
-  // 2. 일별 시계열 (DAU 트렌드, 세션수, 사용시간 차트 소스)
-  console.log('%c\n[2] 일별 시계열 데이터 (SERIES)', 'font-weight:bold');
-  SM.forEach((s,i)=>{
-    ['kr','jp','ww','gl'].forEach(co=>{
-      const series = SERIES[co]?.[i];
-      if(!series||!series.length){ console.error(`❌ ${s.n}[${co}] 시계열 없음`); errors++; return; }
-      // GL은 세션수/사용시간 0값 정상
-      if(co!=='gl'){
-        const zeroSe = series.slice(-7).filter(r=>r.se===0).length;
-        const zeroTi = series.slice(-7).filter(r=>r.ti===0).length;
-        if(zeroSe>3){ console.warn(`⚠️ ${s.n}[${co}] 최근 7일 세션수 0값 ${zeroSe}개`); warnings++; }
-        if(zeroTi>3){ console.warn(`⚠️ ${s.n}[${co}] 최근 7일 사용시간 0값 ${zeroTi}개`); warnings++; }
-      }
-    });
-  });
-  const latestDate = SERIES['kr'][1]?.[SERIES['kr'][1].length-1]?.date;
-  if(latestDate) console.log(`✅ 일별 데이터 최신 날짜: ${latestDate.toLocaleDateString()}`);
-
-  // 3. MAU 시계열 (사용자지표 MAU 차트/표 소스)
-  console.log('%c\n[3] MAU 시계열 데이터 (MAU_SERIES)', 'font-weight:bold');
-  SM.forEach((s,i)=>{
-    ['kr','jp','ww','gl'].forEach(co=>{
-      const ms = MAU_SERIES[co]?.[i];
-      if(!ms||!ms.length){ console.error(`❌ ${s.n}[${co}] MAU 시계열 없음`); errors++; return; }
-      const latest = ms[ms.length-1];
-      if(latest.mau===0){ console.warn(`⚠️ ${s.n}[${co}] 최신 MAU=0`); warnings++; }
-    });
-  });
-  const latestMAU = MAU_SERIES['kr'][1]?.[MAU_SERIES['kr'][1].length-1];
-  if(latestMAU) console.log(`✅ MAU 최신: ${latestMAU.date.getFullYear()}/${latestMAU.date.getMonth()+1} (${latestMAU.mau}만)`);
-
-  // 4. 매출/다운로드 월별 집계 (P3 차트 소스)
-  console.log('%c\n[4] 매출/다운로드 월별 데이터', 'font-weight:bold');
-  SM.forEach((s,i)=>{
-    ['kr','ww'].forEach(co=>{
-      const revData = getMonthlyData(i,co,'rev',3);
-      const dlData  = getMonthlyData(i,co,'dl',3);
-      if(!revData||revData.length===0){ console.error(`❌ ${s.n}[${co}] 매출 월별 없음`); errors++; }
-      else if(revData.every(v=>v===0)){ console.warn(`⚠️ ${s.n}[${co}] 매출 월별 전부 0`); warnings++; }
-      if(!dlData||dlData.length===0){ console.error(`❌ ${s.n}[${co}] 다운로드 월별 없음`); errors++; }
-    });
-  });
-  console.log('매출/다운로드 확인 완료');
-
-  // 5. WoW 이상값 (전주 동일 요일 비교 기준)
-  console.log('%c\n[5] WoW 이상값 확인', 'font-weight:bold');
-  SM.forEach((s,i)=>{
-    ['kr','jp','ww','gl'].forEach(co=>{
-      const wow = calcWoW(i,co);
-      if(Math.abs(wow)>80){ console.warn(`⚠️ ${s.n}[${co}] WoW=${wow}% (비정상적으로 큰 값)`); warnings++; }
-    });
-  });
-  console.log('WoW 확인 완료');
-
-  // 6. 주별 표 날짜 기준 확인
-  console.log('%c\n[6] 주별 표 날짜 기준 확인', 'font-weight:bold');
-  const latestSeries = SERIES['kr'][1];
-  if(latestSeries&&latestSeries.length){
-    const ld = latestSeries[latestSeries.length-1].date;
-    const today2 = new Date();
-    const diff = Math.round((today2-ld)/(1000*60*60*24));
-    if(diff>7) console.warn(`⚠️ 주별 표 기준: ${ld.toLocaleDateString()} (오늘과 ${diff}일 차이 — 데이터 업데이트 필요?)`);
-    else console.log(`✅ 주별 표 기준: ${ld.toLocaleDateString()}`);
-  }
-
-  // 최종 결과
-  console.log('%c\n=== 검증 완료 ===', 'font-weight:bold;font-size:14px');
-  if(errors===0 && warnings===0) console.log('%c✅ 모든 데이터 정상', 'color:green;font-weight:bold');
-  else{
-    if(errors>0) console.error(`❌ 오류 ${errors}개 — 즉시 확인 필요`);
-    if(warnings>0) console.warn(`⚠️ 경고 ${warnings}개 — 확인 권장`);
-  }
-}
-// ── 데이터 검증 함수 끝 ──────────────────────────────────
-
 // 초기화 및 렌더링
 initP1Dropdown();
 initP4Selects();
-document.getElementById('sepMetric')?.remove();
-document.getElementById('lblMetric')?.remove();
-document.getElementById('tabMetric')?.remove();
 
 // 날짜 입력 범위 설정 (2025-01-01 ~ 오늘)
 (function initDateInputs(){
@@ -2844,8 +2672,9 @@ document.getElementById('tabMetric')?.remove();
   if(ed){ ed.max=fmt(end); ed.value=fmt(end); }
 })();
 
-// 가상 데이터 생성 후 렌더링
+// 가상 데이터 초기화 후 렌더링
 initMockData();
+renderTicker();
 </script>
 </body>
 </html>
